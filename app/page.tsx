@@ -9,6 +9,7 @@ import {
   Identity,
   Address
 } from '@coinbase/onchainkit/identity';
+import { useAccount } from 'wagmi';
 // Transaction components will be implemented later
 // import {
 //   Transaction,
@@ -19,6 +20,8 @@ import {
 // } from '@coinbase/onchainkit/transaction';
 
 export default function Home() {
+  const { address, isConnected } = useAccount();
+
   return (
     <div className={styles.container}>
       <header className={styles.headerWrapper}>
@@ -40,110 +43,114 @@ export default function Home() {
         </p>
 
         {/* Fund Components Section */}
-        <div className={styles.fundSection}>
-          <h2 className={styles.sectionTitle}>Fund Your Wallet</h2>
-          
-          <div className={styles.fundComponents}>
-            <div className={styles.fundItem}>
-              <h3>Fund Card</h3>
-              <p>Complete funding experience with detailed options</p>
-              <FundCard
-                assetSymbol="ETH"
-                country="US"
-                currency="USD"
-              />
-            </div>
+        {isConnected ? (
+          <div className={styles.fundSection}>
+            <h2 className={styles.sectionTitle}>Fund Your Wallet</h2>
+            
+            <div className={styles.fundComponents}>
+              <div className={styles.fundItem}>
+                <h3>Fund Card</h3>
+                <p>Complete funding experience with detailed options</p>
+                <FundCard
+                  assetSymbol="ETH"
+                  country="US"
+                  currency="USD"
+                />
+              </div>
 
-            <div className={styles.fundItem}>
-              <h3>Fund Button</h3>
-              <p>Simple one-click funding solution</p>
-              <FundButton />
+              <div className={styles.fundItem}>
+                <h3>Fund Button</h3>
+                <p>Simple one-click funding solution</p>
+                <FundButton />
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className={styles.connectPrompt}>
+            <h2 className={styles.sectionTitle}>Connect Your Wallet</h2>
+            <p>Connect your wallet to access funding and identity features</p>
+          </div>
+        )}
 
         {/* Identity Components Section */}
-        <div className={styles.identitySection}>
-          <h2 className={styles.sectionTitle}>Identity Components</h2>
-          
-          <div className={styles.identityComponents}>
-            <div className={styles.identityItem}>
-              <h3>User Identity</h3>
-              <p>Complete identity display with avatar, name, and address</p>
-              <Identity address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" schemaId="0xf8b05c79f090979bf4a80270aba232dff11a10744c737d5720b2e3e5bc7e24d01b1">
-                <Avatar />
-                <Name />
-                <Address />
-              </Identity>
-            </div>
+        {isConnected && address ? (
+          <div className={styles.identitySection}>
+            <h2 className={styles.sectionTitle}>Your Identity</h2>
+            
+            <div className={styles.identityComponents}>
+              <div className={styles.identityItem}>
+                <h3>Complete Identity</h3>
+                <p>Your wallet identity with avatar, name, and address</p>
+                <Identity address={address}>
+                  <Avatar />
+                  <Name />
+                  <Address />
+                </Identity>
+              </div>
 
-            <div className={styles.identityItem}>
-              <h3>Avatar Only</h3>
-              <p>Display user avatar from ENS or Basename</p>
-              <Avatar address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" />
-            </div>
+              <div className={styles.identityItem}>
+                <h3>Your Avatar</h3>
+                <p>Your profile avatar from ENS or Basename</p>
+                <Avatar address={address} />
+              </div>
 
-            <div className={styles.identityItem}>
-              <h3>Name Display</h3>
-              <p>Show ENS/Basename with fallback to address</p>
-              <Name address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" />
+              <div className={styles.identityItem}>
+                <h3>Your Name</h3>
+                <p>Your ENS/Basename with fallback to address</p>
+                <Name address={address} />
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
 
         {/* Transaction Components Section */}
         <div className={styles.transactionSection}>
           <h2 className={styles.sectionTitle}>Transaction Components</h2>
           
-          <div className={styles.transactionComponents}>
-            <div className={styles.transactionItem}>
-              <h3>Transaction Demo</h3>
-              <p>Transaction components (requires wallet connection and valid calls)</p>
-              
-              <div className={styles.transactionDemo}>
-                <button 
-                  style={{
-                    padding: '12px 24px',
-                    borderRadius: '8px',
-                    border: '1px solid #ccc',
-                    background: '#f5f5f5',
-                    cursor: 'not-allowed',
-                    opacity: 0.6
-                  }}
-                  disabled
-                >
-                  Transaction Demo (Coming Soon)
-                </button>
-                <p style={{fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7}}>
-                  Transaction components will be implemented with proper configuration
-                </p>
+          {isConnected && address ? (
+            <div className={styles.transactionComponents}>
+              <div className={styles.transactionItem}>
+                <h3>Ready for Transactions</h3>
+                <p>Wallet connected - Transaction components ready for implementation</p>
+                
+                <div className={styles.transactionDemo}>
+                  <button 
+                    style={{
+                      padding: '12px 24px',
+                      borderRadius: '8px',
+                      border: '1px solid #0052ff',
+                      background: 'rgba(0, 82, 255, 0.1)',
+                      color: '#0052ff',
+                      cursor: 'default',
+                    }}
+                  >
+                    Wallet Connected ✓
+                  </button>
+                  <p style={{fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7}}>
+                    Connected to: {address.slice(0, 6)}...{address.slice(-4)}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className={styles.transactionItem}>
-              <h3>Transaction Status</h3>
-              <p>Status tracking and toast notifications for transactions</p>
-              
-              <div className={styles.transactionDemo}>
-                <button 
-                  style={{
-                    padding: '12px 24px',
-                    borderRadius: '8px',
-                    border: '1px solid #ccc',
-                    background: '#f5f5f5',
-                    cursor: 'not-allowed',
-                    opacity: 0.6
-                  }}
-                  disabled
-                >
-                  Demo Status Button
-                </button>
-                <p style={{fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7}}>
-                  Transaction status and toasts will appear here
-                </p>
+              <div className={styles.transactionItem}>
+                <h3>Transaction Features</h3>
+                <p>Available transaction capabilities with your connected wallet</p>
+                
+                <div className={styles.transactionDemo}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#22c55e' }}>✓ Send transactions</span>
+                    <span style={{ fontSize: '0.9rem', color: '#22c55e' }}>✓ Smart contract interactions</span>
+                    <span style={{ fontSize: '0.9rem', color: '#22c55e' }}>✓ Gas estimation</span>
+                    <span style={{ fontSize: '0.9rem', color: '#fbbf24' }}>⚡ Coming soon: Full implementation</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className={styles.connectPrompt}>
+              <p>Connect your wallet to see transaction capabilities</p>
+            </div>
+          )}
         </div>
 
         <h2 className={styles.componentsTitle}>Explore Components</h2>
