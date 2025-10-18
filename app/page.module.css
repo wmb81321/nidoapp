@@ -74,6 +74,106 @@
   opacity: 0.8;
 }
 
+/* Identity Section Styles */
+.identitySection {
+  margin: 3rem 0;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.identityComponents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.identityItem {
+  background: var(--ock-bg-secondary, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--ock-border, rgba(255, 255, 255, 0.1));
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.identityItem:hover {
+  transform: translateY(-2px);
+  border-color: var(--ock-primary, #0052ff);
+}
+
+.identityItem h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ock-text-primary);
+}
+
+.identityItem p {
+  margin: 0 0 1rem 0;
+  color: var(--ock-text-secondary);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Transaction Section Styles */
+.transactionSection {
+  margin: 3rem 0;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.transactionComponents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.transactionItem {
+  background: var(--ock-bg-secondary, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--ock-border, rgba(255, 255, 255, 0.1));
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transactionItem:hover {
+  transform: translateY(-2px);
+  border-color: var(--ock-primary, #0052ff);
+}
+
+.transactionItem h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ock-text-primary);
+}
+
+.transactionItem p {
+  margin: 0 0 1rem 0;
+  color: var(--ock-text-secondary);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.transactionDemo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
 .componentsTitle {
   font-weight: 600;
   margin-top: 2rem;
@@ -105,6 +205,34 @@
   }
   
   .fundSection {
+    margin: 2rem 0;
+    padding: 0 1rem;
+  }
+  
+  .identityComponents {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .identityItem {
+    padding: 1rem;
+  }
+  
+  .identitySection {
+    margin: 2rem 0;
+    padding: 0 1rem;
+  }
+  
+  .transactionComponents {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .transactionItem {
+    padding: 1rem;
+  }
+  
+  .transactionSection {
     margin: 2rem 0;
     padding: 0 1rem;
   }

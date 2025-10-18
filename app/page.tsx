@@ -2,8 +2,21 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { Wallet } from "@coinbase/onchainkit/wallet";
-import { FundCard } from '@coinbase/onchainkit/fund';
-import { FundButton } from '@coinbase/onchainkit/fund';
+import { FundCard, FundButton } from '@coinbase/onchainkit/fund';
+import { 
+  Avatar, 
+  Name, 
+  Identity,
+  Address
+} from '@coinbase/onchainkit/identity';
+// Transaction components will be implemented later
+// import {
+//   Transaction,
+//   TransactionButton,
+//   TransactionSponsor,
+//   TransactionStatus,
+//   TransactionToast
+// } from '@coinbase/onchainkit/transaction';
 
 export default function Home() {
   return (
@@ -45,6 +58,90 @@ export default function Home() {
               <h3>Fund Button</h3>
               <p>Simple one-click funding solution</p>
               <FundButton />
+            </div>
+          </div>
+        </div>
+
+        {/* Identity Components Section */}
+        <div className={styles.identitySection}>
+          <h2 className={styles.sectionTitle}>Identity Components</h2>
+          
+          <div className={styles.identityComponents}>
+            <div className={styles.identityItem}>
+              <h3>User Identity</h3>
+              <p>Complete identity display with avatar, name, and address</p>
+              <Identity address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" schemaId="0xf8b05c79f090979bf4a80270aba232dff11a10744c737d5720b2e3e5bc7e24d01b1">
+                <Avatar />
+                <Name />
+                <Address />
+              </Identity>
+            </div>
+
+            <div className={styles.identityItem}>
+              <h3>Avatar Only</h3>
+              <p>Display user avatar from ENS or Basename</p>
+              <Avatar address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" />
+            </div>
+
+            <div className={styles.identityItem}>
+              <h3>Name Display</h3>
+              <p>Show ENS/Basename with fallback to address</p>
+              <Name address="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" />
+            </div>
+          </div>
+        </div>
+
+        {/* Transaction Components Section */}
+        <div className={styles.transactionSection}>
+          <h2 className={styles.sectionTitle}>Transaction Components</h2>
+          
+          <div className={styles.transactionComponents}>
+            <div className={styles.transactionItem}>
+              <h3>Transaction Demo</h3>
+              <p>Transaction components (requires wallet connection and valid calls)</p>
+              
+              <div className={styles.transactionDemo}>
+                <button 
+                  style={{
+                    padding: '12px 24px',
+                    borderRadius: '8px',
+                    border: '1px solid #ccc',
+                    background: '#f5f5f5',
+                    cursor: 'not-allowed',
+                    opacity: 0.6
+                  }}
+                  disabled
+                >
+                  Transaction Demo (Coming Soon)
+                </button>
+                <p style={{fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7}}>
+                  Transaction components will be implemented with proper configuration
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.transactionItem}>
+              <h3>Transaction Status</h3>
+              <p>Status tracking and toast notifications for transactions</p>
+              
+              <div className={styles.transactionDemo}>
+                <button 
+                  style={{
+                    padding: '12px 24px',
+                    borderRadius: '8px',
+                    border: '1px solid #ccc',
+                    background: '#f5f5f5',
+                    cursor: 'not-allowed',
+                    opacity: 0.6
+                  }}
+                  disabled
+                >
+                  Demo Status Button
+                </button>
+                <p style={{fontSize: '0.8rem', marginTop: '0.5rem', opacity: 0.7}}>
+                  Transaction status and toasts will appear here
+                </p>
+              </div>
             </div>
           </div>
         </div>
